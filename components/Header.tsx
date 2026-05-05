@@ -44,7 +44,6 @@ export function Header({ locale, showHero = false, heroTitle, heroCta }: HeaderP
               priority
               className={header.logo}
               style={{ height: '70px', width: 'auto' }}
-              unoptimized
             />
           </Link>
 

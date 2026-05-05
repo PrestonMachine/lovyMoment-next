@@ -44,7 +44,7 @@ export function SubHeader({ locale }: SubHeaderProps) {
             width={140}
             height={60}
             style={{ height: 'auto', maxHeight: 60 }}
-            unoptimized
+            
           />
         </Link>
         <CopyLinkButton />

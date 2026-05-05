@@ -45,7 +45,6 @@ export function ProductGrid({ locale, products, limit, batchSize = 12 }: Product
                   sizes="(max-width: 480px) 90vw, (max-width: 992px) 45vw, 30vw"
                   loading="lazy"
                   style={{ objectFit: 'cover', borderRadius: 24 }}
-                  unoptimized
                 />
               ) : null}
               <div className={allEntirementsStyle.gradiant}>

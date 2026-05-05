@@ -61,7 +61,7 @@ export function ProductGallery({ productName, album, video }: Props) {
               sizes="(max-width: 768px) 100vw, 60vw"
               priority={idx === 0}
               style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              unoptimized
+              
             />
           </SwiperSlide>
         ))}
@@ -102,7 +102,7 @@ export function ProductGallery({ productName, album, video }: Props) {
                   height={1080}
                   sizes="100vw"
                   style={{ width: '100%', height: 'auto', maxHeight: '90vh', objectFit: 'contain' }}
-                  unoptimized
+                  
                 />
               </SwiperSlide>
             ))}
