@@ -88,4 +88,17 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
 }
+
+/* Used by ProgressiveReveal: cards fade in as they enter the viewport. */
+@keyframes productFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes productFadeIn {
+    from { opacity: 1; transform: none; }
+    to   { opacity: 1; transform: none; }
+  }
+}
 /*# sourceMappingURL=app.css.map */

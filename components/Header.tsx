@@ -37,7 +37,7 @@ export function Header({ locale, showHero = false, heroTitle, heroCta }: HeaderP
               dimension" warning.
             */}
             <Image
-              src="/img/logo1.png"
+              src="/img/logo_new.png"
               alt="Lovy Moment — організація свят у Львові"
               width={140}
               height={48}

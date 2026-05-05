@@ -29,6 +29,7 @@
   right: auto !important;
   margin-top: 0 !important;
   color: transparent !important;
+  z-index: 999;
 }
 
 .swiper-button-next,

@@ -248,4 +248,16 @@
     font-size: 20px;
   }
 }
+
+/*
+ * Inner pages (`SubHeader`) render the full nav bar plus a compact
+ * back/logo/copy row beneath it. On phones the duplicate big logo on top
+ * is wasted real estate — hide that row and let the compact row act as
+ * the page header.
+ */
+@media (max-width: 500px) {
+  .sub_top_hide {
+    display: none !important;
+  }
+}
 /*# sourceMappingURL=header.module.css.map */

@@ -20,8 +20,15 @@ interface SubHeaderProps {
 export function SubHeader({ locale }: SubHeaderProps) {
   return (
     <>
-      {/* Render the same nav line as the home Header, without the hero. */}
-      <Header locale={locale} showHero={false} />
+      {/*
+        Render the same nav line as the home Header, without the hero.
+        On phones (≤500px) this top bar is hidden — the compact buttons
+        row below already plays the role of a header on mobile, so the
+        big duplicate logo would just waste vertical space.
+      */}
+      <div className={header.sub_top_hide}>
+        <Header locale={locale} showHero={false} />
+      </div>
 
       <div className={header.header_buttons}>
         <div className={header.header_back}>
@@ -32,11 +39,11 @@ export function SubHeader({ locale }: SubHeaderProps) {
         <Link href={localePath(locale, '/')} aria-label="Lovy Moment">
           <Image
             className={header.buttons_img}
-            src="/img/logo1.png"
+            src="/img/logo_new.png"
             alt="Lovy Moment"
             width={140}
-            height={48}
-            style={{ height: 'auto', maxHeight: 50 }}
+            height={60}
+            style={{ height: 'auto', maxHeight: 60 }}
             unoptimized
           />
         </Link>

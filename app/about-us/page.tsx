@@ -1,6 +1,7 @@
 /**
- * "About us" page (`/about-us`). Pure server component — content is static
- * marketing copy, no Firebase needed. SEO metadata exported.
+ * "About us" page (`/about-us`). Faithful port of the legacy SPA — same
+ * sections, same emojis in section titles, same CTA banner. Pure server
+ * component, content is static marketing copy.
  */
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   keywords: CATEGORY_SEO['about-us'].keywords,
   alternates: {
     canonical: '/about-us',
-    languages: { uk: '/about-us', en: '/en/about-us', pl: '/pl/about-us' }
+    languages: { uk: '/about-us', en: '/en/about-us' }
   },
   openGraph: {
     title: CATEGORY_SEO['about-us'].title,
@@ -26,6 +27,13 @@ export const metadata: Metadata = {
     type: 'website'
   }
 };
+
+// Style overrides applied to every <Image>: the legacy CSS rules
+// (`width: 100%; height: 400px; object-fit: cover` etc.) live in the
+// `.module.css` and target raw `<img>` selectors. Next.js's `<Image>`
+// renders an `<img>`, so the cascade picks up the legacy rule once we
+// stop forcing `height: auto` inline.
+const imageStyle = { objectFit: 'cover' as const };
 
 export default function AboutUsPage() {
   const locale = 'uk' as const;
@@ -49,25 +57,33 @@ export default function AboutUsPage() {
               width={800}
               height={600}
               priority
-              style={{ width: '100%', height: 'auto' }}
+              style={imageStyle}
             />
           </div>
         </section>
 
         <section className={aboutUsStyles.services_section}>
-          <h2 className={aboutUsStyles.section_title}>Що ми робимо</h2>
+          <h2 className={aboutUsStyles.section_title}>🎉 Що ми робимо</h2>
           <div className={aboutUsStyles.services_grid}>
             <div className={aboutUsStyles.service_card}>
               <h3>Атракціони</h3>
-              <p>Надувні гірки, батутні комплекси, лабіринти та інші розваги — для будь-якого свята</p>
+              <p>
+                Надувні гірки, батутні комплекси, лабіринти та інші розваги — для будь-якого свята
+              </p>
             </div>
             <div className={aboutUsStyles.service_card}>
               <h3>Ігри та активності</h3>
-              <p>Від інтерактивних квестів до творчих воркшопів — підбираємо розваги відповідно до віку та тематики</p>
+              <p>
+                Від інтерактивних квестів до творчих воркшопів — підбираємо розваги відповідно до
+                віку та тематики
+              </p>
             </div>
             <div className={aboutUsStyles.service_card}>
               <h3>Аніматори</h3>
-              <p>Живе спілкування з улюбленими персонажами, індивідуальний сценарій заходу</p>
+              <p>
+                Живе спілкування з улюбленими персонажами, індивідуальний сценарій заходу за
+                бажанням замовника
+              </p>
             </div>
             <div className={aboutUsStyles.service_card}>
               <h3>Кейтеринг</h3>
@@ -77,7 +93,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className={aboutUsStyles.experience_section}>
-          <h2 className={aboutUsStyles.section_title}>Наш досвід</h2>
+          <h2 className={aboutUsStyles.section_title}>😊 Наш досвід</h2>
           <div className={aboutUsStyles.experience_content}>
             <div className={aboutUsStyles.experience_text}>
               <div className={aboutUsStyles.experience_item}>
@@ -86,11 +102,11 @@ export default function AboutUsPage() {
               </div>
               <div className={aboutUsStyles.experience_item}>
                 <span className={aboutUsStyles.highlight}>1000+ клієнтів</span>
-                <p>задоволених клієнтів, які поверталися до нас знову</p>
+                <p>задоволених клієнтів, які поверталися до нас знову та рекомендують друзям</p>
               </div>
               <div className={aboutUsStyles.experience_item}>
                 <span className={aboutUsStyles.highlight}>Львів та область</span>
-                <p>працюємо по всьому регіону, підлаштовуючись під бюджет та формат заходу</p>
+                <p>працюємо по всьому регіону, підлаштовуючись під бюджет і формат заходу</p>
               </div>
             </div>
             <div className={aboutUsStyles.experience_image}>
@@ -99,14 +115,36 @@ export default function AboutUsPage() {
                 alt="Lovy Moment на одному зі святкових заходів у Львові"
                 width={800}
                 height={600}
-                style={{ width: '100%', height: 'auto' }}
+                style={imageStyle}
               />
             </div>
           </div>
         </section>
 
+        <section className={aboutUsStyles.values_section}>
+          <h2 className={aboutUsStyles.section_title}>💡 Наші цінності</h2>
+          <div className={aboutUsStyles.values_grid}>
+            <div className={aboutUsStyles.value_card}>
+              <h3>Індивідуальний підхід</h3>
+              <p>До кожного заходу — від сценарію до деталей декору</p>
+            </div>
+            <div className={aboutUsStyles.value_card}>
+              <h3>Безпека і якість</h3>
+              <p>Сучасні та якісні атракціони з дотриманням усіх стандартів безпеки</p>
+            </div>
+            <div className={aboutUsStyles.value_card}>
+              <h3>Живе спілкування</h3>
+              <p>Веселий і живий контакт між аніматорами та гостями</p>
+            </div>
+            <div className={aboutUsStyles.value_card}>
+              <h3>Емоції понад усе</h3>
+              <p>Справжнє свято — це море позитиву та щирі посмішки</p>
+            </div>
+          </div>
+        </section>
+
         <section className={aboutUsStyles.contact_section}>
-          <h2 className={aboutUsStyles.section_title}>Зв&apos;язок з нами</h2>
+          <h2 className={aboutUsStyles.section_title}>📞 Зв&apos;язок з нами</h2>
           <div className={aboutUsStyles.contact_content}>
             <div className={aboutUsStyles.contact_info}>
               <p className={aboutUsStyles.contact_text}>
@@ -114,26 +152,44 @@ export default function AboutUsPage() {
               </p>
               <div className={aboutUsStyles.phones}>
                 <a href="tel:+380979371691" className={aboutUsStyles.phone_link}>
-                  +38 (097) 937 16 91
+                  ☎️ +38 (097) 937 16 91
                 </a>
                 <a href="tel:+380638604966" className={aboutUsStyles.phone_link}>
-                  +38 (063) 860 49 66
+                  ☎️ +38 (063) 860 49 66
                 </a>
               </div>
               <p className={aboutUsStyles.work_hours}>Працюємо щодня з 10:00 до 21:00</p>
               <div className={aboutUsStyles.messengers}>
                 <p>У месенджерах:</p>
                 <div className={aboutUsStyles.messenger_links}>
-                  <a href="https://wa.me/380979371691" className={aboutUsStyles.messenger_link} rel="noopener noreferrer" target="_blank">
+                  <a
+                    href="https://wa.me/380979371691"
+                    className={aboutUsStyles.messenger_link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     WhatsApp
                   </a>
-                  <a href="viber://add?number=380979371691" className={aboutUsStyles.messenger_link}>
+                  <a
+                    href="viber://add?number=380979371691"
+                    className={aboutUsStyles.messenger_link}
+                  >
                     Viber
                   </a>
-                  <a href="https://t.me/pavluyk" className={aboutUsStyles.messenger_link} rel="noopener noreferrer" target="_blank">
+                  <a
+                    href="https://t.me/+380979371691"
+                    className={aboutUsStyles.messenger_link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Telegram
                   </a>
-                  <a href="https://www.instagram.com/lovymomentlviv/" className={aboutUsStyles.messenger_link} rel="noopener noreferrer" target="_blank">
+                  <a
+                    href="https://www.instagram.com/lovymomentlviv/"
+                    className={aboutUsStyles.messenger_link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Instagram
                   </a>
                 </div>
@@ -145,10 +201,16 @@ export default function AboutUsPage() {
                 alt="Команда Lovy Moment"
                 width={800}
                 height={600}
-                style={{ width: '100%', height: 'auto' }}
+                style={imageStyle}
               />
             </div>
           </div>
+        </section>
+
+        <section className={aboutUsStyles.cta_section}>
+          <h2 className={aboutUsStyles.cta_title}>
+            Lovy Moment — лови свій момент, а ми додамо йому яскравих фарб! 🎨
+          </h2>
         </section>
       </article>
       <Caller />
