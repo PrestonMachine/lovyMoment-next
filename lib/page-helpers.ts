@@ -18,12 +18,32 @@ export function absoluteUrl(locale: Locale, path: string): string {
   return `${SITE_URL}${localePath(locale, path)}`;
 }
 
-/** Hreflang `alternates.languages` block — every locale maps to the same path. */
+/**
+ * Hreflang `alternates.languages` block. Every locale maps to the same
+ * path, plus an `x-default` entry pointing at the default-locale URL —
+ * Google requires that to mark the fallback for unmatched languages, and
+ * SEO auditors flag pages that have only foreign-language hreflangs as
+ * "self-referential alternate link is missing".
+ */
 export function hreflang(path: string) {
+  const ukPath = `/${path.replace(/^\//, '')}`.replace(/\/+$/, '') || '/';
+  const enPath = `/en${path.startsWith('/') ? path : `/${path}`}`.replace(/\/+$/, '') || '/en';
   return {
-    uk: `/${path.replace(/^\//, '')}`.replace(/\/+$/, '') || '/',
-    en: `/en${path.startsWith('/') ? path : `/${path}`}`.replace(/\/+$/, '') || '/en'
+    'x-default': ukPath,
+    uk: ukPath,
+    en: enPath
   };
+}
+
+/** Hard caps applied to every dynamically built title / description so we
+ *  never overflow Google's SERP truncation thresholds. */
+const TITLE_MAX = 60;
+const DESC_MAX = 155;
+
+function clamp(text: string, max: number): string {
+  if (!text) return text;
+  if (text.length <= max) return text;
+  return text.slice(0, max - 1).trimEnd() + '…';
 }
 
 export function categoryMetadata(category: string, locale: Locale): Metadata {
@@ -31,10 +51,12 @@ export function categoryMetadata(category: string, locale: Locale): Metadata {
   if (!seo) return {};
   const path = `/${category}`;
   const url = absoluteUrl(locale, path);
+  const title = clamp(seo.title, TITLE_MAX);
+  const description = clamp(seo.description, DESC_MAX);
 
   return {
-    title: seo.title,
-    description: seo.description,
+    title,
+    description,
     keywords: seo.keywords,
     alternates: {
       canonical: localePath(locale, path),
@@ -60,16 +82,23 @@ export function categoryMetadata(category: string, locale: Locale): Metadata {
 
 export function productMetadata(category: string, product: Product, locale: Locale): Metadata {
   const titles: Record<Locale, string> = {
-    uk: `${product.name} — оренда у Львові | Lovy Moment`,
-    en: `${product.name} — rent in Lviv | Lovy Moment`
+    uk: `${product.name} — Lovy Moment`,
+    en: `${product.name} — Lovy Moment`
   };
   const fallbackDesc: Record<Locale, string> = {
-    uk: `${product.name} у Львові від Lovy Moment. ${product.price ? 'Ціна: ' + product.price + '. ' : ''}Замовлення: +38 (097) 937 16 91.`,
-    en: `${product.name} in Lviv by Lovy Moment. ${product.price ? 'Price: ' + product.price + '. ' : ''}Bookings: +38 (097) 937 16 91.`
+    uk: `${product.name} у Львові — Lovy Moment.${product.price ? ' Ціна: ' + product.price + '.' : ''} ☎ 097 937 16 91`,
+    en: `${product.name} in Lviv — Lovy Moment.${product.price ? ' Price: ' + product.price + '.' : ''} ☎ +380 97 937 16 91`
   };
 
-  const title = titles[locale];
-  const description = (product.descriptions || '').trim() || fallbackDesc[locale];
+  // Title cap: keep under ~60 chars / 580 px so SERP doesn't truncate.
+  const rawTitle = titles[locale];
+  const title = rawTitle.length > 60 ? rawTitle.slice(0, 57).trimEnd() + '…' : rawTitle;
+
+  // Description cap: keep under ~155 Cyrillic chars / 1000 px.
+  let description = (product.descriptions || '').trim() || fallbackDesc[locale];
+  if (description.length > 155) {
+    description = description.slice(0, 152).trimEnd() + '…';
+  }
   const path = `/${category}/${product.slug}`;
   const url = absoluteUrl(locale, path);
 

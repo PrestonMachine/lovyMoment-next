@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 
 import { Header } from '@/components/Header';
 import { SeactionBlock } from '@/components/SeactionBlock';
+import { HomeIntro } from '@/components/HomeIntro';
 import { AllEntertiments } from '@/components/AllEntertiments';
 import { Footer } from '@/components/Footer';
 import { Caller } from '@/components/Caller';
@@ -47,6 +48,7 @@ export default async function HomePageEn() {
       <Header locale={LOCALE} showHero heroTitle={dict.hero.title} heroCta={dict.hero.cta} />
       <SeactionBlock locale={LOCALE} />
       <AllEntertiments locale={LOCALE} products={products} />
+      <HomeIntro locale={LOCALE} />
       <Caller />
       <Footer locale={LOCALE} />
     </>

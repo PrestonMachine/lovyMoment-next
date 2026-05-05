@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 
 import { Header } from '@/components/Header';
 import { SeactionBlock } from '@/components/SeactionBlock';
+import { HomeIntro } from '@/components/HomeIntro';
 import { AllEntertiments } from '@/components/AllEntertiments';
 import { Footer } from '@/components/Footer';
 import { Caller } from '@/components/Caller';
@@ -26,6 +27,7 @@ export default async function HomePage() {
       <Suspense fallback={null}>
         <AllEntertiments locale={locale} products={products} />
       </Suspense>
+      <HomeIntro locale={locale} />
       <Caller />
       <Footer locale={locale} />
     </>

@@ -18,156 +18,157 @@ export interface PageSeo {
 
 const CATEGORY_SEO_UK: Record<string, PageSeo> = {
   atractions: {
-    title: 'Атракціони у Львові — Надувні гірки, батути | Lovy Moment',
+    title: 'Атракціони у Львові: надувні гірки, батути | Lovy Moment',
     description:
-      'Оренда атракціонів у Львові: надувні гірки, батутні комплекси, лабіринти. Безпечні та якісні атракціони для дитячих свят та корпоративів від Lovy Moment.',
+      'Оренда атракціонів у Львові: надувні гірки, батути, лабіринти. Безпечні та якісні розваги для свят і корпоративів — Lovy Moment.',
     keywords:
-      'атракціони львів, надувні гірки львів, батути оренда, лабіринти для дітей, атракціони на свято, надувні комплекси'
+      'атракціони львів, надувні гірки, батути оренда, лабіринти для дітей, атракціони на свято'
   },
   megagame: {
-    title: 'Ігри та активності у Львові — Квести, воркшопи | Lovy Moment',
+    title: 'Ігри та активності у Львові: квести, воркшопи | Lovy Moment',
     description:
-      'Організація ігор та активностей у Львові: інтерактивні квести, творчі воркшопи, командні ігри. Розваги для будь-якого віку від Lovy Moment.',
+      'Ігри та активності у Львові: квести, творчі воркшопи, командні ігри. Розваги для будь-якого віку — Lovy Moment.',
     keywords:
-      'ігри львів, квести для дітей, воркшопи львів, активності на свято, командні ігри, розваги для дітей'
+      'ігри львів, квести для дітей, воркшопи львів, командні ігри, розваги'
   },
   animators: {
-    title: 'Аніматори у Львові — Персонажі, майстер-класи | Lovy Moment',
+    title: 'Аніматори у Львові: персонажі, майстер-класи | Lovy Moment',
     description:
-      'Професійні аніматори у Львові з улюбленими персонажами. Індивідуальні сценарії, майстер-класи, живе спілкування з дітьми від Lovy Moment.',
+      'Професійні аніматори у Львові: улюблені персонажі, індивідуальні сценарії, майстер-класи. Lovy Moment — свята для дітей.',
     keywords:
-      'аніматори львів, персонажі на свято, майстер класи для дітей, аніматори на день народження, дитячі свята львів'
+      'аніматори львів, персонажі на свято, майстер класи для дітей, аніматори на день народження'
   },
   food: {
-    title: 'Кейтеринг у Львові — Солодка вата, попкорн | Lovy Moment',
+    title: 'Кейтеринг у Львові: солодка вата, попкорн | Lovy Moment',
     description:
-      'Кейтеринг для свят у Львові: солодка вата, попкорн, напої. Смачні та якісні ласощі для дитячих та дорослих свят від Lovy Moment.',
+      'Кейтеринг для свят у Львові: солодка вата, попкорн, напої. Смачно, якісно, з посмішкою — Lovy Moment.',
     keywords:
-      'кейтеринг львів, солодка вата, попкорн на свято, напої для свята, їжа на день народження'
+      'кейтеринг львів, солодка вата, попкорн на свято, їжа на день народження'
   },
   'child-party': {
-    title: 'Дитячі свята у Львові — Організація дня народження | Lovy Moment',
+    title: 'Дитячі свята у Львові: дні народження | Lovy Moment',
     description:
-      'Організація дитячих свят у Львові: дні народження, тематичні вечірки. Атракціони, аніматори, ігри — все для незабутнього свята від Lovy Moment.',
+      'Організація дитячих свят у Львові: дні народження, тематичні вечірки, атракціони, аніматори, ігри. Lovy Moment.',
     keywords:
-      'дитячі свята львів, день народження дитини, організація дитячого свята, тематичні вечірки для дітей'
+      'дитячі свята львів, день народження дитини, організація дитячого свята'
   },
   corporate: {
-    title: 'Корпоративні заходи у Львові — Тімбілдинги | Lovy Moment',
+    title: 'Корпоративи у Львові: тімбілдинги | Lovy Moment',
     description:
-      'Організація корпоративних заходів у Львові: тімбілдинги, корпоративи, ділові заходи. Професійна організація від Lovy Moment.',
+      'Корпоративні заходи у Львові: тімбілдинги, ділові свята, виїзди. Професійна організація — Lovy Moment.',
     keywords:
-      'корпоративи львів, тімбілдинг, корпоративні заходи, ділові заходи львів, організація корпоративів'
+      'корпоративи львів, тімбілдинг, корпоративні заходи'
   },
   promotion: {
-    title: 'Промоакції у Львові — Активності для бренду | Lovy Moment',
+    title: 'Промоакції у Львові: активності для бренду | Lovy Moment',
     description:
-      'Організація промоакцій у Львові: атракціони, розваги, активності для просування бренду. Lovy Moment — професійна організація.',
+      'Організація промоакцій у Львові: атракціони, розваги, активності для просування бренду. Lovy Moment.',
     keywords:
-      'промоакції львів, активності для бренду, BTL у Львові, реклама на заходах'
+      'промоакції львів, активності для бренду, BTL у Львові'
   },
   trampoline: {
     title: 'Надувні гірки та батути у Львові | Lovy Moment',
     description:
-      'Оренда надувних гірок та батутних комплексів у Львові. Безпечно, весело та яскраво для дитячих свят від Lovy Moment.',
+      'Оренда надувних гірок та батутних комплексів у Львові. Безпечно, весело, яскраво — Lovy Moment.',
     keywords:
-      'надувні гірки львів, батути оренда, надувні атракціони, гірки для дітей'
+      'надувні гірки львів, батути оренда, надувні атракціони'
   },
   other: {
     title: 'Інше обладнання для свят у Львові | Lovy Moment',
     description:
-      'Додаткове обладнання для свят у Львові: звукове обладнання, декорації, технічне забезпечення заходів від Lovy Moment.',
+      'Додаткове обладнання для свят у Львові: звук, декорації, технічне забезпечення — Lovy Moment.',
     keywords:
-      'обладнання для свят львів, звукове обладнання, декорації на свято, технічне забезпечення'
+      'обладнання для свят львів, звукове обладнання, декорації на свято'
   },
   'about-us': {
-    title:
-      'Про нас — Lovy Moment | Команда професіоналів організації свят у Львові',
+    title: 'Про нас — Lovy Moment | Свята у Львові',
     description:
-      'Lovy Moment — команда з 10+ років досвіду організації свят у Львові. 1000+ задоволених клієнтів. Атракціони, аніматори, ігри, кейтеринг.',
+      'Lovy Moment — команда з 10+ років досвіду організації свят у Львові. 1000+ задоволених клієнтів, тисячі усмішок.',
     keywords:
-      'про lovy moment, команда організації свят, досвід роботи львів, професіонали атракціонів, історія компанії'
+      'про lovy moment, команда організації свят, досвід роботи львів'
   }
 };
 
 const CATEGORY_SEO_EN: Record<string, PageSeo> = {
   atractions: {
-    title: 'Attractions in Lviv — Inflatable slides, trampolines | Lovy Moment',
+    title: 'Attractions in Lviv: inflatable slides, trampolines | Lovy Moment',
     description:
-      'Rent attractions in Lviv: inflatable slides, trampoline complexes, mazes. Safe and high-quality attractions for children\'s parties and corporate events from Lovy Moment.',
-    keywords:
-      'attractions Lviv, inflatable slides Lviv, trampolines rent, mazes for kids, party attractions, inflatable complexes'
+      'Attraction rental in Lviv: inflatable slides, trampolines, mazes. Safe and high-quality entertainment for parties — Lovy Moment.',
+    keywords: 'attractions Lviv, inflatable slides Lviv, trampolines rent, mazes for kids, party attractions'
   },
   megagame: {
-    title: 'Games & Activities in Lviv — Quests, workshops | Lovy Moment',
+    title: 'Games & activities in Lviv: quests, workshops | Lovy Moment',
     description:
-      'Games and activities in Lviv: interactive quests, creative workshops, team games. Entertainment for any age from Lovy Moment.',
-    keywords: 'games Lviv, quests for kids, workshops Lviv, party activities, team games, entertainment for kids'
+      'Games and activities in Lviv: interactive quests, creative workshops, team games. Entertainment for any age — Lovy Moment.',
+    keywords: 'games Lviv, quests for kids, workshops Lviv, team games, party activities'
   },
   animators: {
-    title: 'Animators in Lviv — Characters & master-classes | Lovy Moment',
+    title: 'Animators in Lviv: characters & workshops | Lovy Moment',
     description:
-      'Professional animators in Lviv with favourite characters. Individual scripts, master-classes, live interaction with kids from Lovy Moment.',
-    keywords: 'animators Lviv, party characters, master-classes for kids, birthday animators, kids parties Lviv'
+      'Professional animators in Lviv with favourite characters. Individual scripts, master-classes, live interaction — Lovy Moment.',
+    keywords: 'animators Lviv, party characters, master-classes, birthday animators'
   },
   food: {
-    title: 'Catering in Lviv — Cotton candy, popcorn | Lovy Moment',
+    title: 'Catering in Lviv: cotton candy, popcorn | Lovy Moment',
     description:
-      'Party catering in Lviv: cotton candy, popcorn, drinks. Delicious and high-quality treats for kids\' and adults\' parties from Lovy Moment.',
-    keywords: 'catering Lviv, cotton candy, popcorn party, party drinks, birthday food'
+      'Party catering in Lviv: cotton candy, popcorn, drinks. Tasty and high-quality treats — Lovy Moment.',
+    keywords: 'catering Lviv, cotton candy, popcorn party, party drinks'
   },
   'child-party': {
-    title: 'Kids parties in Lviv — Birthday organisation | Lovy Moment',
+    title: 'Kids parties in Lviv: birthday planning | Lovy Moment',
     description:
-      'Kids parties in Lviv: birthdays, themed parties. Attractions, animators, games — everything for an unforgettable celebration from Lovy Moment.',
-    keywords: 'kids parties Lviv, child birthday, kids party planning, themed parties for kids'
+      'Kids parties in Lviv: birthdays, themed events, attractions, animators, games. Lovy Moment.',
+    keywords: 'kids parties Lviv, child birthday, kids party planning'
   },
   corporate: {
-    title: 'Corporate events in Lviv — Team-building | Lovy Moment',
+    title: 'Corporate events in Lviv: team-building | Lovy Moment',
     description:
-      'Corporate event planning in Lviv: team-building, corporate parties, business events. Professional organisation from Lovy Moment.',
-    keywords: 'corporate Lviv, team-building, corporate events, business events Lviv'
+      'Corporate events in Lviv: team-building, business parties, off-sites. Professional organisation — Lovy Moment.',
+    keywords: 'corporate Lviv, team-building, corporate events, business events'
   },
   promotion: {
-    title: 'Promotional events in Lviv — Brand activations | Lovy Moment',
+    title: 'Promotional events in Lviv: brand activations | Lovy Moment',
     description:
-      'Promotional events in Lviv: attractions, entertainment and brand activations. Lovy Moment — professional event organisation.',
-    keywords: 'promotional events Lviv, brand activations, BTL Lviv, event advertising'
+      'Promotional events in Lviv: attractions, entertainment, brand activations. Lovy Moment.',
+    keywords: 'promotional events Lviv, brand activations, BTL Lviv'
   },
   trampoline: {
     title: 'Inflatable slides & trampolines in Lviv | Lovy Moment',
     description:
-      'Rent inflatable slides and trampoline complexes in Lviv. Safe, fun and bright for kids\' parties from Lovy Moment.',
-    keywords: 'inflatable slides Lviv, trampolines rent, inflatable attractions, slides for kids'
+      'Rent inflatable slides and trampoline complexes in Lviv. Safe, fun, bright — Lovy Moment.',
+    keywords: 'inflatable slides Lviv, trampolines rent, inflatable attractions'
   },
   other: {
     title: 'Other event equipment in Lviv | Lovy Moment',
-    description: 'Additional event equipment in Lviv: sound equipment, decorations, technical support from Lovy Moment.',
-    keywords: 'event equipment Lviv, sound equipment, party decorations, technical support'
+    description:
+      'Additional event equipment in Lviv: sound, decorations, technical support — Lovy Moment.',
+    keywords: 'event equipment Lviv, sound equipment, party decorations'
   },
   'about-us': {
-    title: 'About us — Lovy Moment | Lviv event professionals',
+    title: 'About us — Lovy Moment | Events in Lviv',
     description:
-      'Lovy Moment — 10+ years of organising parties in Lviv. 1000+ happy clients. Attractions, animators, games, catering.',
-    keywords: 'about lovy moment, event team, lviv experience, attractions professionals, company story'
+      'Lovy Moment — 10+ years of organising events in Lviv. 1000+ happy clients, thousands of smiles.',
+    keywords: 'about lovy moment, event team Lviv, attractions professionals'
   }
 };
 
 const HOME_SEO_BY_LOCALE: Record<Locale, PageSeo> = {
   uk: {
-    title:
-      'Lovy Moment — Організація свят у Львові | Атракціони, Аніматори, Розваги',
+    // Targets:
+    //   title  ≤ 580 px (≈ 60 Cyrillic chars)
+    //   desc   ≤ 1000 px (≈ 155 Cyrillic chars)
+    title: 'Lovy Moment — Свята у Львові | Атракціони, аніматори, ігри',
     description:
-      'Lovy Moment — організація яскравих свят у Львові та області. Атракціони, аніматори, ігри, кейтеринг. Понад 10 років досвіду, 1000+ задоволених клієнтів. ☎️ 097 937 16 91',
+      'Lovy Moment — організація свят у Львові: атракціони, аніматори, ігри, кейтеринг. 10+ років досвіду, 1000+ задоволених клієнтів. ☎ 097 937 16 91',
     keywords:
-      'організація свят львів, атракціони львів, аніматори львів, дитячі свята, корпоративи, батути, надувні гірки, розваги для дітей, святкування дня народження, lovy moment'
+      'організація свят львів, атракціони львів, аніматори львів, дитячі свята, корпоративи, батути, надувні гірки, розваги для дітей, lovy moment'
   },
   en: {
-    title: 'Lovy Moment — Event organisation in Lviv | Attractions, Animators, Entertainment',
+    title: 'Lovy Moment — Events in Lviv | Attractions, Animators, Games',
     description:
-      'Lovy Moment — bright party organisation in Lviv & region. Attractions, animators, games, catering. 10+ years of experience, 1000+ happy clients. ☎️ 097 937 16 91',
+      'Lovy Moment — event organisation in Lviv: attractions, animators, games, catering. 10+ years of experience, 1000+ happy clients. ☎ 097 937 16 91',
     keywords:
-      'event organisation Lviv, attractions Lviv, animators Lviv, kids parties, corporate, trampolines, inflatable slides, entertainment for kids, birthday celebration, lovy moment'
+      'event organisation Lviv, attractions Lviv, animators Lviv, kids parties, corporate, trampolines, inflatable slides, entertainment for kids, lovy moment'
   }
 };
 

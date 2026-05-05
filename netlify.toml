@@ -1,0 +1,35 @@
+# Netlify build config for Next.js (App Router).
+#
+# The official `@netlify/plugin-nextjs` plugin handles the publish dir
+# (`.next`) automatically — but we set it explicitly so the build doesn't
+# fall back to the legacy `/build` path that breaks with the error
+# "Your publish directory was not found at: …/build".
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Production-time env vars (override in Netlify UI for staging/preview).
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Official Next.js runtime — handles SSR, ISR, image optimisation, edge.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# www → apex redirect. SEO auditors flag duplicate content when both
+# www.lovymoment.com and lovymoment.com serve the same site. Pin the apex
+# as canonical here so the browser only ever ends up on it. Replace the
+# host below with whatever your production domain is.
+[[redirects]]
+  from = "https://www.lovymoment.com/*"
+  to = "https://lovymoment.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.lovymoment.com/*"
+  to = "https://lovymoment.com/:splat"
+  status = 301
+  force = true
