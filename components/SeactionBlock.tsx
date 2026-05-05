@@ -48,20 +48,12 @@ const ALT_BY_LOCALE: Record<Locale, Record<string, string>> = {
     animators: 'Animators in Lviv for kids parties',
     food: 'Catering — cotton candy, popcorn, drinks',
     other: 'Event equipment in Lviv'
-  },
-  pl: {
-    atractions: 'Atrakcje we Lwowie — dmuchane zjeżdżalnie i trampoliny',
-    megagame: 'Gry i aktywności we Lwowie',
-    animators: 'Animatorzy we Lwowie na imprezy dziecięce',
-    food: 'Catering — wata cukrowa, popcorn, napoje',
-    other: 'Wyposażenie imprezowe we Lwowie'
   }
 };
 
 const SECTION_ARIA: Record<Locale, string> = {
   uk: 'Категорії послуг',
-  en: 'Service categories',
-  pl: 'Kategorie usług'
+  en: 'Service categories'
 };
 
 export function SeactionBlock({ locale }: SeactionBlockProps) {
