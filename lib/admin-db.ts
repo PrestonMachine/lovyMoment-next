@@ -15,8 +15,15 @@ import { ref, get, set } from 'firebase/database';
 import { clientDb } from './firebase-client';
 import type { RawProduct } from '@/types';
 
-/** Keys at root that aren't product entries — preserved across writes. */
-const META_KEYS = new Set(['admins']);
+/**
+ * Root-level keys that are *not* product entries. The admin whitelist
+ * lives in Firestore now (see `lib/admin-users.ts`), but earlier installs
+ * stored it under `/_admins` or `/admins` in RTDB. We still skip those
+ * keys when listing products, and the writer drops them from the root so
+ * the cleanup is one-shot the first time someone saves a product.
+ */
+const LEGACY_ADMIN_KEYS = ['admins', '_admins'] as const;
+const META_KEYS = new Set<string>(LEGACY_ADMIN_KEYS);
 
 /**
  * Read every raw product from the DB. Looks both at the root (current
@@ -70,20 +77,10 @@ export async function adminListProducts(): Promise<RawProduct[]> {
  * Requires the RTDB security rules to allow root-level writes for admins.
  */
 async function writeProducts(rows: RawProduct[]): Promise<void> {
-  // Snapshot anything we need to keep around (admin whitelist, etc.).
-  const preserved: Record<string, unknown> = {};
-  const rootSnap = await get(ref(clientDb()));
-  if (rootSnap.exists()) {
-    const root = rootSnap.val();
-    if (root && typeof root === 'object' && !Array.isArray(root)) {
-      for (const [k, v] of Object.entries(root as Record<string, unknown>)) {
-        if (META_KEYS.has(k)) preserved[k] = v;
-      }
-    }
-  }
-
-  // Build the new root: products at numeric keys + preserved meta keys.
-  const next: Record<string, unknown> = { ...preserved };
+  // Build the new root: just products at numeric keys. Any leftover admin
+  // tree from a previous install (`/_admins`, `/admins`) is dropped — the
+  // whitelist now lives in Firestore.
+  const next: Record<string, unknown> = {};
   for (let i = 0; i < rows.length; i++) {
     next[String(i)] = rows[i];
   }

@@ -1,49 +1,56 @@
 'use client';
 
 /**
- * Admin whitelist + per-user permissions stored in Firebase RTDB.
+ * Admin whitelist + per-user permissions stored in **Firestore** at
  *
- * Schema:
- *   /admins/<emailEscaped>: {
- *     canEdit: true,
- *     canDelete: false,
- *     canUpload: true,
- *     canManageAdmins: false
- *   }
+ *   /admins/<emailKey>
+ *     { canEdit, canDelete, canUpload, canManageAdmins }
  *
- * Backwards compatibility: legacy entries store `true` instead of an object.
- * `parsePermissions()` (in admin-config) treats `true` as full permissions
- * and missing fields as `false`.
+ * Putting the access list in Firestore (rather than the same RTDB tree as
+ * the product cards) keeps the two domains visually and operationally
+ * separate. Firestore's own security rules govern access — anonymous
+ * visitors can't read this collection, only signed-in admins.
  *
- * The auth flow only checks "does the entry exist?" — granular gating is
- * done client-side via the AuthProvider. RTDB security rules keep the
- * whitelist itself tamper-proof, so a malicious actor still can't bypass
- * permissions by editing local state.
+ * Backwards compatibility: if a legacy entry stored `true` instead of an
+ * object, `parsePermissions()` (in admin-config) treats it as full
+ * permissions. New writes always use the object form.
  */
-import { ref, get, set, remove } from 'firebase/database';
-
-import { clientDb } from './firebase-client';
 import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc
+} from 'firebase/firestore';
+
+import { clientFirestore } from './firebase-client';
+import {
+  DEFAULT_PERMISSIONS,
   emailToKey,
   keyToEmail,
   parsePermissions,
-  DEFAULT_PERMISSIONS,
   type AdminPermissions
 } from './admin-config';
+
+const COLLECTION = 'admins';
 
 export interface StoredAdmin {
   email: string;
   permissions: AdminPermissions;
 }
 
+function adminDoc(email: string) {
+  return doc(clientFirestore(), COLLECTION, emailToKey(email));
+}
+
 /** Quick "does an entry exist?" check used during sign-in. */
 export async function isStoredAdmin(email: string): Promise<boolean> {
   if (!email) return false;
   try {
-    const snap = await get(ref(clientDb(), `admins/${emailToKey(email)}`));
+    const snap = await getDoc(adminDoc(email));
     return snap.exists();
   } catch {
-    // Auth might not be propagated yet — rules return permission denied.
     return false;
   }
 }
@@ -54,9 +61,9 @@ export async function getStoredAdminPermissions(
 ): Promise<AdminPermissions | null> {
   if (!email) return null;
   try {
-    const snap = await get(ref(clientDb(), `admins/${emailToKey(email)}`));
+    const snap = await getDoc(adminDoc(email));
     if (!snap.exists()) return null;
-    return parsePermissions(snap.val());
+    return parsePermissions(snap.data());
   } catch {
     return null;
   }
@@ -64,17 +71,15 @@ export async function getStoredAdminPermissions(
 
 /** List every admin entry along with parsed permissions. */
 export async function fetchStoredAdmins(): Promise<StoredAdmin[]> {
-  const snap = await get(ref(clientDb(), 'admins'));
-  if (!snap.exists()) return [];
-  const val = snap.val() as Record<string, unknown> | null;
-  if (!val) return [];
-  return Object.entries(val)
-    .filter(([, v]) => v !== null && v !== undefined && v !== false)
-    .map(([key, v]) => ({
-      email: keyToEmail(key),
-      permissions: parsePermissions(v)
-    }))
-    .sort((a, b) => a.email.localeCompare(b.email));
+  const snap = await getDocs(collection(clientFirestore(), COLLECTION));
+  const out: StoredAdmin[] = [];
+  snap.forEach((d) => {
+    out.push({
+      email: keyToEmail(d.id),
+      permissions: parsePermissions(d.data())
+    });
+  });
+  return out.sort((a, b) => a.email.localeCompare(b.email));
 }
 
 /** Legacy helper — kept for the dashboard's stat counter. */
@@ -90,7 +95,7 @@ export async function addStoredAdmin(
 ): Promise<void> {
   const clean = email.trim().toLowerCase();
   if (!clean.includes('@')) throw new Error('Введіть коректну email-адресу');
-  await set(ref(clientDb(), `admins/${emailToKey(clean)}`), { ...permissions });
+  await setDoc(adminDoc(clean), { ...permissions });
 }
 
 /** Replace an existing admin's permission set. */
@@ -98,9 +103,9 @@ export async function updateStoredAdminPermissions(
   email: string,
   permissions: AdminPermissions
 ): Promise<void> {
-  await set(ref(clientDb(), `admins/${emailToKey(email)}`), { ...permissions });
+  await setDoc(adminDoc(email), { ...permissions });
 }
 
 export async function removeStoredAdmin(email: string): Promise<void> {
-  await remove(ref(clientDb(), `admins/${emailToKey(email)}`));
+  await deleteDoc(adminDoc(email));
 }

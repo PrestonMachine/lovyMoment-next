@@ -11,6 +11,7 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth';
 import { getDatabase, type Database } from 'firebase/database';
+import { getFirestore, type Firestore } from 'firebase/firestore';
 import { getStorage, type FirebaseStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -47,6 +48,16 @@ export function clientDb(): Database {
 
 export function clientStorage(): FirebaseStorage {
   return getStorage(app());
+}
+
+/**
+ * Firestore is used for the admin whitelist (`/admins/<emailKey>`). Keeping
+ * the access list in a separate database from the public products keeps the
+ * RTDB tree visually clean and lets us write tighter security rules — only
+ * admins can read this collection at all, anonymous visitors get nothing.
+ */
+export function clientFirestore(): Firestore {
+  return getFirestore(app());
 }
 
 export const googleProvider = new GoogleAuthProvider();

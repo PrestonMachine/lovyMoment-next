@@ -113,8 +113,10 @@ async function readRawList(): Promise<unknown[]> {
       for (const v of val) if (v) collected.push(v);
     } else if (val && typeof val === 'object') {
       for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
-        if (k === 'admins') continue;
-        if (k === 'products') continue;
+        // Skip meta keys that aren't products: the canonical admin whitelist
+        // (`_admins`), the legacy whitelist (`admins`) and the legacy
+        // `products` bucket from earlier migration attempts.
+        if (k === '_admins' || k === 'admins' || k === 'products') continue;
         if (v && typeof v === 'object') collected.push(v);
       }
     }

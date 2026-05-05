@@ -46,7 +46,7 @@ export interface Dictionary {
 
 const uk: Dictionary = {
   brand: 'Lovy Moment',
-  hero: { title: 'Розваги та атракціони для свят у Львові', cta: 'Список розваг' },
+  hero: { title: 'Розваги та атракціони для свят', cta: 'Список розваг' },
   nav: { aboutUs: 'Про нас' },
   sections: {
     allTitle: 'Усі',
@@ -101,7 +101,7 @@ const uk: Dictionary = {
 
 const en: Dictionary = {
   brand: 'Lovy Moment',
-  hero: { title: 'Entertainment and attractions for events in Lviv', cta: 'See entertainment list' },
+  hero: { title: 'Entertainment and attractions for events', cta: 'See entertainment list' },
   nav: { aboutUs: 'About us' },
   sections: {
     allTitle: 'All',

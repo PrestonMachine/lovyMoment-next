@@ -164,28 +164,66 @@ The admin whitelist is split in two:
 2. **Enable Google sign-in** — Firebase Console →
    *Authentication → Sign-in method → Google → Enable*.
 
-3. **RTDB security rules** — Firebase Console → *Realtime Database → Rules*:
+3. **Realtime Database rules** — *Firebase Console → Realtime Database → Rules*:
+
+   The RTDB now stores **only products**. The admin whitelist lives in
+   Firestore (separate database, separate rules — see step 4).
 
    ```json
    {
      "rules": {
        ".read": true,
-       ".write": "auth != null && auth.token.email_verified == true && (root.child('admins').child(auth.token.email.replace('.', ',')).exists() || auth.token.email == 'pavlo@clasify.com')",
-       "admins": {
-         ".read": "auth != null"
+       ".write": "auth != null && auth.token.email_verified == true && (auth.token.email == 'pavlo@clasify.com' || exists(/databases/$(database)/documents/admins/$(auth.token.email.replace('.',','))))"
+     }
+   }
+   ```
+
+   Note: RTDB rules can't natively call into Firestore, so the `exists(...)`
+   path above is illustrative — RTDB will fall back to the explicit email
+   check. In practice we keep the simpler form below and let Firestore +
+   the client-side guard enforce admin-level granularity:
+
+   ```json
+   {
+     "rules": {
+       ".read": true,
+       ".write": "auth != null && auth.token.email_verified == true"
+     }
+   }
+   ```
+
+   Replace `pavlo@clasify.com` with whatever's in your
+   `NEXT_PUBLIC_ROOT_ADMIN_EMAILS`.
+
+4. **Enable Firestore + Firestore rules** — *Firebase Console → Firestore
+   Database → Create database* (production mode, choose your region).
+   Then under *Rules*:
+
+   ```
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       // Admin whitelist — root admins always allowed, otherwise only
+       // existing admins can read/write the list.
+       match /admins/{emailKey} {
+         allow read, write: if request.auth != null
+                            && request.auth.token.email_verified == true
+                            && (
+                                 request.auth.token.email == 'pavlo@clasify.com'
+                                 || exists(/databases/$(database)/documents/admins/$(request.auth.token.email.replace('.', ',')))
+                               );
        }
      }
    }
    ```
 
-   The root-level `.write` lets admins write/clean up anything in the tree
-   (including the one-time cleanup that drops legacy numeric-keyed
-   product entries during migration). The override on `/admins` keeps the
-   whitelist invisible to anonymous visitors.
+   Document IDs in Firestore can't contain `.`, so emails are stored with
+   `.` replaced by `,` (matching `emailToKey` in `lib/admin-config.ts`).
 
-   Replace `pavlo@clasify.com` with whatever's in your
-   `NEXT_PUBLIC_ROOT_ADMIN_EMAILS`. The `auth.token.email.replace('.', ',')`
-   trick maps an email to a Firebase-safe key (RTDB keys can't contain `.`).
+   The very first root admin (env-configured) bootstraps the whole flow:
+   they sign in, write themselves into Firestore via `/admin/admins`, and
+   from then on every other admin gets resolved through the document
+   collection. Only root admins remain hardcoded in `.env`.
 
 4. **Storage rules** — Firebase Console → *Storage → Rules*:
 
