@@ -20,8 +20,6 @@ import {
   ADMIN_PERMISSION_DESCRIPTIONS,
   ADMIN_PERMISSION_LABELS,
   DEFAULT_PERMISSIONS,
-  FULL_PERMISSIONS,
-  ROOT_ADMIN_EMAILS,
   type AdminPermissions,
   type Capability
 } from '@/lib/admin-config';
@@ -32,6 +30,7 @@ import {
   updateStoredAdminPermissions,
   type StoredAdmin
 } from '@/lib/admin-users';
+import { PartyLoader } from '@/components/Loader';
 import styles from '@/styles/admin.module.css';
 
 export default function AdminUsersPage() {
@@ -146,24 +145,6 @@ export default function AdminUsersPage() {
 
       {error && <div className={styles.alertError}>{error}</div>}
 
-      <div className={styles.formCard} style={{ marginBottom: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>
-          🔒 Root-адміни <span className={styles.formHint}>(захардкоджені, з .env, повний доступ)</span>
-        </h2>
-        {ROOT_ADMIN_EMAILS.map((email) => (
-          <div key={email} className={styles.adminCard}>
-            <div className={styles.adminCardHeader}>
-              <span className={styles.adminCardEmail}>{email}</span>
-              <span className={`${styles.adminCardBadge} ${styles.adminCardBadgeRoot}`}>root</span>
-              {email === user?.email?.toLowerCase() && (
-                <span className={`${styles.adminCardBadge} ${styles.adminCardBadgeYou}`}>це ви</span>
-              )}
-            </div>
-            <PermissionGrid permissions={FULL_PERMISSIONS} disabled />
-          </div>
-        ))}
-      </div>
-
       <div className={styles.formCard}>
         <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>
           ➕ Додати нового адміна
@@ -201,7 +182,9 @@ export default function AdminUsersPage() {
           {stored && <span className={styles.formHint}> · {stored.length}</span>}
         </h2>
 
-        {stored === null && <div className={styles.empty}>Завантаження…</div>}
+        {stored === null && (
+          <PartyLoader caption="Завантажуємо адмінів" subline="Звіряємо список доступу…" compact />
+        )}
         {stored && stored.length === 0 && (
           <div className={styles.empty}>Ще немає збережених адмінів.</div>
         )}

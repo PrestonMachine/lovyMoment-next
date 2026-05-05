@@ -7,6 +7,7 @@
  */
 import { useState } from 'react';
 import { useAuth } from './AuthProvider';
+import { PartyLoader } from '@/components/Loader';
 import styles from '@/styles/admin.module.css';
 
 export function SignInScreen() {
@@ -17,7 +18,7 @@ export function SignInScreen() {
   if (loading) {
     return (
       <div className={styles.authShell}>
-        <div className={styles.authCard}>Перевіряємо сесію…</div>
+        <PartyLoader caption="Перевіряємо сесію" subline="Один момент…" />
       </div>
     );
   }

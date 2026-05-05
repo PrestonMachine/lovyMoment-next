@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 
 import { useAuth } from '@/components/admin/AuthProvider';
 import { adminListProducts, adminDeleteProduct } from '@/lib/admin-db';
+import { PartyLoader } from '@/components/Loader';
 import type { RawProduct } from '@/types';
 import styles from '@/styles/admin.module.css';
 
@@ -79,6 +80,9 @@ export default function ProductListPage() {
 
       {error && <div className={styles.alertError}>{error}</div>}
 
+      {products === null && (
+        <PartyLoader caption="Завантажуємо товари" subline="Підтягуємо актуальний каталог…" />
+      )}
       {products && filtered.length === 0 && (
         <div className={styles.empty}>Нічого не знайдено.</div>
       )}

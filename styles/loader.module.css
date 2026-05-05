@@ -1,0 +1,176 @@
+/*
+ * Party-themed loader. Two variants:
+ *   `.partyLoader`  — large card with bouncing balloons + floating confetti.
+ *                     Used as a section/page-level placeholder.
+ *   `.inlineLoader` — small spinning ring + dots, fits inside buttons.
+ */
+
+.partyLoader {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 48px 32px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 20%, rgba(79, 102, 207, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 80% 90%, rgba(245, 93, 93, 0.08) 0%, transparent 55%),
+    #ffffff;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.06);
+  font-family: 'Rubik', sans-serif;
+  text-align: center;
+}
+
+.partyLoaderCompact {
+  padding: 32px 20px;
+  gap: 14px;
+}
+
+/* ----- Balloons ----- */
+.balloons {
+  position: relative;
+  width: 220px;
+  height: 100px;
+  z-index: 2;
+}
+
+.balloons svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.balloon {
+  transform-origin: center bottom;
+  animation: balloonBounce 1.4s ease-in-out infinite;
+}
+
+.balloon:nth-child(1) { animation-delay: 0s; }
+.balloon:nth-child(2) { animation-delay: 0.12s; }
+.balloon:nth-child(3) { animation-delay: 0.24s; }
+.balloon:nth-child(4) { animation-delay: 0.36s; }
+.balloon:nth-child(5) { animation-delay: 0.48s; }
+
+@keyframes balloonBounce {
+  0%, 100% {
+    transform: translateY(6px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(2deg);
+  }
+}
+
+/* ----- Confetti dots ----- */
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.confettiPiece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confettiFall 3.4s linear infinite;
+}
+
+.confettiPiece:nth-child(1)  { left: 8%;  background: #4f66cf; animation-delay: 0s;    }
+.confettiPiece:nth-child(2)  { left: 18%; background: #f55d5d; animation-delay: 0.4s;  }
+.confettiPiece:nth-child(3)  { left: 28%; background: #f8d37c; animation-delay: 0.8s;  }
+.confettiPiece:nth-child(4)  { left: 38%; background: #5bd262; animation-delay: 1.2s;  }
+.confettiPiece:nth-child(5)  { left: 48%; background: #e55ba0; animation-delay: 1.6s;  }
+.confettiPiece:nth-child(6)  { left: 58%; background: #4f66cf; animation-delay: 0.6s;  }
+.confettiPiece:nth-child(7)  { left: 68%; background: #f8d37c; animation-delay: 1.0s;  }
+.confettiPiece:nth-child(8)  { left: 78%; background: #f55d5d; animation-delay: 1.4s;  }
+.confettiPiece:nth-child(9)  { left: 88%; background: #5bd262; animation-delay: 1.8s;  }
+.confettiPiece:nth-child(10) { left: 92%; background: #e55ba0; animation-delay: 2.2s;  }
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.7; }
+  100% {
+    transform: translateY(120px) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+/* ----- Caption + dots ----- */
+.caption {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4f66cf;
+  letter-spacing: 0.01em;
+  z-index: 2;
+}
+
+.captionDot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4f66cf;
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.captionDot:nth-child(1) { animation-delay: 0s;   }
+.captionDot:nth-child(2) { animation-delay: 0.2s; }
+.captionDot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40%          { transform: translateY(-3px); opacity: 1; }
+}
+
+.subline {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: -8px;
+  z-index: 2;
+}
+
+/* ----- Inline loader (button-sized) ----- */
+.inlineLoader {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.inlineRing {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ----- Reduced-motion: kill the bounce/fall animations ----- */
+@media (prefers-reduced-motion: reduce) {
+  .balloon,
+  .confettiPiece,
+  .captionDot,
+  .inlineRing {
+    animation: none !important;
+  }
+  .confettiPiece { opacity: 0.6; }
+}

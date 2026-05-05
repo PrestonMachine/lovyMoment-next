@@ -7,6 +7,7 @@
 import type { Metadata, Viewport } from 'next';
 
 import { SITE_NAME, SITE_URL, SITE_DEFAULT_DESCRIPTION, HOME_SEO } from '@/lib/seo';
+import { NavLoader } from '@/components/NavLoader';
 import '@/styles/app.css';
 import '@/styles/footer.css';
 import '@/styles/entirementsPage.css';
@@ -146,6 +147,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="uk">
       <body>
+        <NavLoader />
         <div className="app">{children}</div>
 
         <script

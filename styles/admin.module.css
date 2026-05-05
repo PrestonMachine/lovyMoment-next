@@ -873,3 +873,208 @@
 .listAddBtn:hover {
   background: #eef2ff;
 }
+
+/* ───────────────────── Mobile (≤640px) optimisations ─────────────────────
+ *
+ * Admin is a tools UI, not marketing copy — so on small screens we
+ * compress paddings, stack flex rows, and make tap targets bigger. The
+ * goal is the whole panel still being usable at 360 px width without
+ * horizontal scrolling.
+ */
+@media (max-width: 640px) {
+  /* Top bar — collapse user pill, hide email, keep avatar + sign-out */
+  .topbar {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .brand {
+    font-size: 15px;
+    gap: 8px;
+  }
+  .brand span:first-child {
+    font-size: 18px !important;
+  }
+  .userPill > span:not(.avatar) {
+    display: none;
+  }
+  .userPill .btnGhost {
+    padding: 6px 12px !important;
+    font-size: 12px;
+  }
+
+  /* Content paddings */
+  .content {
+    padding: 18px 14px 32px;
+  }
+  .pageTitle {
+    font-size: 22px;
+  }
+  .pageSubtitle {
+    font-size: 13px;
+  }
+
+  /* Action row → vertical stack */
+  .actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .actionRow > * {
+    width: 100% !important;
+  }
+
+  /* Read-only banner */
+  .readOnlyBanner {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  /* Dashboard — softer hero, smaller stat cards */
+  .dashHero {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+  .dashHeroText h1 {
+    font-size: 22px;
+  }
+  .dashHeroText p {
+    font-size: 13px;
+  }
+  .dashHeroBadge {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .statCard {
+    padding: 16px 18px;
+  }
+  .statValue {
+    font-size: 26px;
+  }
+  .actionGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .actionCard {
+    padding: 18px 18px;
+  }
+
+  /* Recent products — list items already wrap, just tighten */
+  .recentSection,
+  .formCard,
+  .previewCard {
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+  .recentItem {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .recentItem .actionArrow {
+    flex-basis: 100%;
+    text-align: right;
+  }
+
+  /* Product list — stack thumb + actions */
+  .listItem {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .thumb {
+    width: 56px;
+    height: 56px;
+  }
+  .itemActions {
+    margin-left: 0;
+    width: 100%;
+    justify-content: stretch;
+  }
+  .itemActions > * {
+    flex: 1;
+  }
+
+  /* Forms — tighten labels and full-width buttons */
+  .formGroupRow {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .formLabel {
+    font-size: 12px;
+  }
+  .input,
+  .textarea,
+  .select {
+    font-size: 16px;  /* prevents iOS zoom on focus */
+    padding: 10px 12px;
+  }
+  .btnPrimary,
+  .btnGhost,
+  .btnDanger,
+  .btnSecondary {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  /* Tag picker — wrap nicely */
+  .tagPicker {
+    gap: 6px;
+  }
+  .tagOption {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* Image uploader */
+  .uploader {
+    padding: 14px;
+  }
+  .imageItem {
+    width: 76px;
+    height: 76px;
+  }
+
+  /* Admin permission cards */
+  .adminCard {
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .adminCardEmail {
+    font-size: 14px;
+    flex-basis: 100%;
+    min-width: 0;
+  }
+  .permissionGrid {
+    grid-template-columns: 1fr;
+  }
+  .permissionToggle {
+    padding: 10px 12px;
+  }
+
+  /* Preview frame on edit page — softer container */
+  .previewFrame {
+    padding: 14px;
+  }
+}
+
+/* Very small phones (≤380px) — mostly used by older Android stock browsers */
+@media (max-width: 380px) {
+  .pageTitle {
+    font-size: 20px;
+  }
+  .dashHero {
+    padding: 18px 14px;
+  }
+  .statValue {
+    font-size: 22px;
+  }
+  .actionEmoji {
+    font-size: 22px;
+  }
+  .actionTitle {
+    font-size: 15px;
+  }
+}

@@ -11,6 +11,7 @@ import { useParams } from 'next/navigation';
 
 import { adminGetProduct } from '@/lib/admin-db';
 import { ProductForm } from '@/components/admin/ProductForm';
+import { PartyLoader } from '@/components/Loader';
 import type { RawProduct } from '@/types';
 import styles from '@/styles/admin.module.css';
 
@@ -51,7 +52,9 @@ export default function EditProductPage() {
 
       {error && <div className={styles.alertError}>{error}</div>}
 
-      {product === undefined && <div className={styles.empty}>Завантаження…</div>}
+      {product === undefined && (
+        <PartyLoader caption="Завантажуємо товар" subline={`id: ${id}`} compact />
+      )}
       {product === null && (
         <div className={styles.empty}>
           Товар з id <code>{id}</code> не знайдено.{' '}

@@ -18,6 +18,7 @@ import { useAuth } from '@/components/admin/AuthProvider';
 import { adminListProducts } from '@/lib/admin-db';
 import { fetchStoredAdminEmails } from '@/lib/admin-users';
 import { ROOT_ADMIN_EMAILS } from '@/lib/admin-config';
+import { PartyLoader } from '@/components/Loader';
 import type { RawProduct } from '@/types';
 import styles from '@/styles/admin.module.css';
 
@@ -147,7 +148,9 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        {products === null && <div className={styles.empty}>Завантаження…</div>}
+        {products === null && (
+          <PartyLoader caption="Завантажуємо останні" compact confettiCount={6} />
+        )}
         {products && products.length === 0 && (
           <div className={styles.empty}>Каталог порожній. Додайте перший товар.</div>
         )}

@@ -20,6 +20,7 @@ import { ImageUploader } from './ImageUploader';
 import { ProductPreview } from './ProductPreview';
 import { ListEditor } from './ListEditor';
 import { useAuth } from './AuthProvider';
+import { InlineLoader } from '@/components/Loader';
 import { adminCreateProduct, adminUpdateProduct } from '@/lib/admin-db';
 import { productSlug } from '@/lib/slug';
 import { pickLocale, pickLocaleArray } from '@/lib/i18n-utils';
@@ -442,7 +443,13 @@ export function ProductForm({ initial }: Props) {
               style={{ width: 'auto' }}
               disabled={saving}
             >
-              {saving ? 'Збереження…' : isNew ? '✅ Створити товар' : '💾 Зберегти зміни'}
+              {saving ? (
+                <InlineLoader>Зберігаємо…</InlineLoader>
+              ) : isNew ? (
+                '✅ Створити товар'
+              ) : (
+                '💾 Зберегти зміни'
+              )}
             </button>
           )}
           <button

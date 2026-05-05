@@ -3,9 +3,9 @@
  * SEO-friendly URLs (`/atractions`, `/animators`, …). Card titles come from
  * the locale dictionary; alt text is also localised.
  */
-import Link from 'next/link';
 import Image from 'next/image';
 
+import { NavCardLink } from './NavCardLink';
 import seactionBlockStyles from '@/styles/seactionBlock.module.css';
 import { localePath } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -62,7 +62,7 @@ export function SeactionBlock({ locale }: SeactionBlockProps) {
     <section className={seactionBlockStyles.container} aria-label={SECTION_ARIA[locale]}>
       <div className={seactionBlockStyles.main_filter}>
         {CARDS.map((card) => (
-          <Link key={card.link} href={localePath(locale, `/${card.link}`)}>
+          <NavCardLink key={card.link} href={localePath(locale, `/${card.link}`)}>
             <div className={`${seactionBlockStyles.filter_card} ${seactionBlockStyles[card.cardModifier] ?? ''}`}>
               <div className={seactionBlockStyles.card_img}>
                 <Image
@@ -71,8 +71,7 @@ export function SeactionBlock({ locale }: SeactionBlockProps) {
                   width={card.cardModifier === 'game' ? 220 : 180}
                   height={160}
                   style={{ objectFit: 'contain' }}
-                
-              />
+                />
               </div>
               <div className={seactionBlockStyles.card_label}>
                 <div className={`${seactionBlockStyles.card_title} ${seactionBlockStyles[card.titleModifier] ?? ''}`}>
@@ -80,7 +79,7 @@ export function SeactionBlock({ locale }: SeactionBlockProps) {
                 </div>
               </div>
             </div>
-          </Link>
+          </NavCardLink>
         ))}
       </div>
     </section>

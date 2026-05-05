@@ -3,9 +3,9 @@
  * URL (`/<category>/<slug>`). Image is rendered with `next/image`, with a
  * unique alt text built from the product name.
  */
-import Link from 'next/link';
 import Image from 'next/image';
 
+import { NavCardLink } from './NavCardLink';
 import allEntirementsStyle from '@/styles/allEntertiments.module.css';
 import { getDictionary } from '@/i18n/dictionaries';
 import { localePath } from '@/i18n/config';
@@ -31,7 +31,7 @@ export function ProductGrid({ locale, products, limit }: ProductGridProps) {
             ? `${p.name} — rent in Lviv from Lovy Moment`
             : `${p.name} — оренда у Львові від Lovy Moment`;
         return (
-          <Link key={p.id} href={href} aria-label={p.name}>
+          <NavCardLink key={p.id} href={href} aria-label={p.name}>
             <article id={p.id} className={allEntirementsStyle.entertiment_card}>
               {p.img ? (
                 <Image
@@ -41,10 +41,6 @@ export function ProductGrid({ locale, products, limit }: ProductGridProps) {
                   sizes="(max-width: 480px) 90vw, (max-width: 992px) 45vw, 30vw"
                   loading="lazy"
                   style={{ objectFit: 'cover', borderRadius: 24 }}
-                  // Skip Next's image optimisation for Firebase-hosted Google
-                  // photos: the lh3.googleusercontent.com URLs already include
-                  // sizing parameters and Vercel's optimiser sometimes rejects
-                  // their query strings.
                   unoptimized
                 />
               ) : null}
@@ -56,7 +52,7 @@ export function ProductGrid({ locale, products, limit }: ProductGridProps) {
                 </div>
               </div>
             </article>
-          </Link>
+          </NavCardLink>
         );
       })}
     </div>
